@@ -1,3 +1,6 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/goradd/html5tag.svg)](https://pkg.go.dev/github.com/goradd/html5tag)
+[![Go Report Card](https://goreportcard.com/badge/github.com/goradd/html5tag)](https://goreportcard.com/report/github.com/goradd/html5tag) 
+
 # html5tag
 
 The html5tag package contains utilities to generate html 5 tags. 
