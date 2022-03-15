@@ -39,13 +39,11 @@ func NewStyle() Style {
 	return make(map[string]string)
 }
 
-// NewStyleFromMap creates a new style from a string map.
-func NewStyleFromMap(m map[string]string) Style {
-	s := NewStyle()
-	for k, v := range m {
-		s[k] = v
-	}
-	return s
+// Copy copies the given style. It also turns a map[string]string into a Style.
+func (s Style) Copy() Style {
+	s2 := NewStyle()
+	s2.Merge(s)
+	return s2
 }
 
 // Merge merges the styles from one style to another. Conflicts will overwrite the current style.
@@ -269,14 +267,6 @@ func StyleString(i interface{}) string {
 		sValue = fmt.Sprint(v)
 	}
 	return sValue
-}
-
-// StyleCreator is a helper struct to create a style from a string map.
-type StyleCreator map[string]string
-
-// Create creates a style from a StyleCreator.
-func (c StyleCreator) Create() Style {
-	return NewStyleFromMap(c)
 }
 
 // MergeStyleStrings merges the styles found in the two style strings.

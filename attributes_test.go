@@ -329,8 +329,6 @@ func ExampleAttributes_Merge() {
 	// Output: class="that" style="width:6px"
 }
 
-
-
 func ExampleAttributes_AddClass() {
 	a := NewAttributes()
 	a.AddClass("this")
