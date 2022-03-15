@@ -5,21 +5,23 @@ import (
 	"testing"
 )
 
-func Example_newStyleFromMap() {
-	s := NewStyleFromMap(map[string]string{"color": "green", "size": "9"})
-	fmt.Print(s)
+func ExampleStyle_Copy() {
+	s := Style{"color": "green", "size": "9"}
+	s2 := s.Copy()
+
+	fmt.Print(s2)
 	//Output: color:green;size:9
 }
 
 func ExampleStyle_Len() {
-	s := NewStyleFromMap(map[string]string{"color": "green", "size": "9"})
+	s := Style{"color": "green", "size": "9"}
 	fmt.Print(s.Len())
 	//Output: 2
 }
 
-func ExampleStyle_SetTo() {
+func ExampleStyle_SetString() {
 	s := NewStyle()
-	s.SetString("height: 9em; width: 100%; position:absolute")
+	_, _ = s.SetString("height: 9em; width: 100%; position:absolute")
 	fmt.Print(s)
 	//Output: height:9em;position:absolute;width:100%
 }
@@ -33,7 +35,7 @@ func ExampleStyle_Set_a() {
 
 func ExampleStyle_Set_b() {
 	s := NewStyle()
-	s.SetString("height:9px")
+	_, _ = s.SetString("height:9px")
 	s.Set("height", "+ 10")
 	fmt.Print(s)
 	//Output: height:19px
@@ -41,14 +43,14 @@ func ExampleStyle_Set_b() {
 
 func ExampleStyle_Get() {
 	s := NewStyle()
-	s.SetString("height: 9em; width: 100%; position:absolute")
+	_, _ = s.SetString("height: 9em; width: 100%; position:absolute")
 	fmt.Print(s.Get("width"))
 	//Output: 100%
 }
 
 func ExampleStyle_Remove() {
 	s := NewStyle()
-	s.SetString("height: 9em; width: 100%; position:absolute")
+	_, _ = s.SetString("height: 9em; width: 100%; position:absolute")
 	s.Remove("position")
 	fmt.Print(s)
 	//Output: height:9em;width:100%
@@ -56,7 +58,7 @@ func ExampleStyle_Remove() {
 
 func ExampleStyle_RemoveAll() {
 	s := NewStyle()
-	s.SetString("height: 9em; width: 100%; position:absolute")
+	_, _ = s.SetString("height: 9em; width: 100%; position:absolute")
 	s.RemoveAll()
 	fmt.Print(s)
 	//Output:
@@ -64,7 +66,7 @@ func ExampleStyle_RemoveAll() {
 
 func ExampleStyle_Has() {
 	s := NewStyle()
-	s.SetString("height: 9em; width: 100%; position:absolute")
+	_, _ = s.SetString("height: 9em; width: 100%; position:absolute")
 	fmt.Print(s.Has("width"), s.Has("display"))
 	//Output:true false
 }
@@ -148,12 +150,26 @@ func TestStyleLengths(t *testing.T) {
 	}
 
 	changed, err = s.SetChanged("width", "1")
+	if !changed {
+		t.Error("Expected change")
+	}
+	if err != nil {
+		t.Error(err)
+	}
+
 	if w := s.Get("width"); w != "1px" {
 		t.Error("Expected a 1px")
 	}
 
 	// test a non-length numeric
 	changed, err = s.SetChanged("volume", "4")
+	if !changed {
+		t.Error("Expected change")
+	}
+	if err != nil {
+		t.Error(err)
+	}
+
 	if w := s.Get("volume"); w != "4" {
 		t.Error("Expected a 4")
 	}
@@ -210,7 +226,7 @@ func TestNilStyle(t *testing.T) {
 }
 
 func TestStyle_mathOp(t *testing.T) {
-	c := StyleCreator{"height": "10", "margin": "", "width": "20en"}
+	c := Style{"height": "10", "margin": "", "width": "20en"}
 
 	type args struct {
 		attribute string
@@ -225,10 +241,10 @@ func TestStyle_mathOp(t *testing.T) {
 		wantErr     bool
 		wantString  string
 	}{
-		{"Test empty", c.Create(), args{"margin", "+", "1"}, true, false, "height:10;margin:1;width:20en"},
-		{"Test float error", c.Create(), args{"margin", "+", "1a"}, false, true, "height:10;margin:;width:20en"},
-		{"Test mul no unit", c.Create(), args{"height", "*", "2"}, true, false, "height:20;margin:;width:20en"},
-		{"Test div w/ unit", c.Create(), args{"width", "/", "2"}, true, false, "height:10;margin:;width:10en"},
+		{"Test empty", c.Copy(), args{"margin", "+", "1"}, true, false, "height:10;margin:1;width:20en"},
+		{"Test float error", c.Copy(), args{"margin", "+", "1a"}, false, true, "height:10;margin:;width:20en"},
+		{"Test mul no unit", c.Copy(), args{"height", "*", "2"}, true, false, "height:20;margin:;width:20en"},
+		{"Test div w/ unit", c.Copy(), args{"width", "/", "2"}, true, false, "height:10;margin:;width:10en"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

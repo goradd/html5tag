@@ -108,7 +108,6 @@ func (b *TagBuilder) String() string {
 	}
 	if b.isVoid {
 		return RenderVoidTag(b.tag, b.attributes)
-	} else {
-		return RenderTag(b.tag, b.attributes, b.innerHtml)
 	}
+	return RenderTag(b.tag, b.attributes, b.innerHtml)
 }

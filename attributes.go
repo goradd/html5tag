@@ -123,8 +123,7 @@ func (a Attributes) set(k string, v string) bool {
 	return !existed || oldVal != v
 }
 
-// Set sets a particular attribute and returns Attributes so that it can be chained. Set will accept a nil
-// Attributes value.
+// Set sets a particular attribute and returns Attributes so that it can be chained.
 //
 // It looks for special attributes like "class", "style" and "data" to do some error checking
 // on them. Use SetData to set data attributes.
@@ -490,10 +489,10 @@ func (a Attributes) AddValuesChanged(attrKey string, values string) bool {
 			return true
 		}
 		return false
-	} else {
-		a.set(attrKey, values)
-		return true
 	}
+
+	a.set(attrKey, values)
+	return true
 }
 
 // AddValues adds space separated values to the end of an attribute value.
@@ -751,9 +750,8 @@ func ValueString(i interface{}) string {
 		return v
 	case int:
 		return strconv.Itoa(v)
-	default:
-		return fmt.Sprint(i)
 	}
+	return fmt.Sprint(i)
 }
 
 // getAttributesFromTemplate returns Attributes extracted from a string in the form
