@@ -16,6 +16,11 @@ html5tag does some checks to make sure tags are well-formed. For example,
 when adding data-* attributes, it will make sure the key used for the
 attribute does not violate html syntax rules.
 
+html5tag has options to pretty-print tags and the content of tags so they appear formatted
+in a document. However, in certain contexts, like in inline text, or in a textarea tag, adding
+extra returns and spaces changes the look of the output. In these situations, use the functions
+that do not add spaces to the inner HTML of a tag.
+
 Some examples:
 
 ```go

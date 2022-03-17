@@ -142,8 +142,6 @@ func (s Style) SetChanged(property string, value string) (changed bool, err erro
 }
 
 // Set is like SetChanged, but returns the Style for chaining.
-//
-// It will also allocate a style if passed a nil style, and return it.
 func (s Style) Set(property string, value string) Style {
 	_, err := s.SetChanged(property, value)
 	if err != nil {

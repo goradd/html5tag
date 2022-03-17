@@ -79,7 +79,7 @@ func RemoveWords(originalValues string, removeValues string) string {
 // Bootstrap uses 'col-lg-6' to represent a table that is 6 units wide on large screens and Foundation
 // uses 'large-6' to do the same thing. This utility removes classes that start with a particular prefix
 // to remove whatever sizing class was specified.
-// Returns the resulting class list, and true if the list actually changed.
+// Returns the resulting class list.
 func RemoveClassesWithPrefix(class string, prefix string) string {
 	classes := strings.Fields(class)
 	ret := ""
