@@ -743,9 +743,8 @@ func ValueString(i interface{}) string {
 	case bool:
 		if v {
 			return "" // boolean true
-		} else {
-			return FalseValue // Our special value to indicate to NOT print the attribute at all
 		}
+		return FalseValue // Our special value to indicate to NOT print the attribute at all
 	case string:
 		return v
 	case int:

@@ -18,9 +18,8 @@ func (b *errBuffer) Write(p []byte) (n int, err error) {
 		l := b.cap - b.buf.Len()
 		n, _ = b.Write(p[:l])
 		return n, fmt.Errorf("out of memory")
-	} else {
-		return b.buf.Write(p)
 	}
+	return b.buf.Write(p)
 }
 
 func newErrBuf(cap int) *errBuffer {
