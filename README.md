@@ -1,5 +1,5 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/goradd/html5tag.svg)](https://pkg.go.dev/github.com/goradd/html5tag)
-![Build Status](https://img.shields.io/github/workflow/status/goradd/got/Go)
+![Build Status](https://img.shields.io/github/workflow/status/goradd/html5tag/Go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/goradd/html5tag)](https://goreportcard.com/report/github.com/goradd/html5tag)
 [![codecov](https://codecov.io/gh/goradd/html5tag/branch/main/graph/badge.svg?token=L8KC75KWWR)](https://codecov.io/gh/goradd/html5tag)
 
