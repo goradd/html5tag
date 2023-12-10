@@ -394,6 +394,13 @@ func ExampleAttributes_RemoveClassesWithPrefix() {
 	// Output: class="that"
 }
 
+func ExampleAttributes_HasClassWithPrefix() {
+	a := Attributes{"class": "col-2 that"}
+	found := a.HasClassWithPrefix("col-")
+	fmt.Println(found)
+	// Output: true
+}
+
 func ExampleAttributes_AddValues() {
 	a := Attributes{"abc": "123"}
 	a.AddValues("abc", "456")

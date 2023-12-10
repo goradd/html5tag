@@ -30,6 +30,12 @@ func ExampleRemoveClassesWithPrefix() {
 	// Output: col4-other
 }
 
+func ExampleHasClassWithPrefix() {
+	exists := HasWordWithPrefix("col-6 col-brk col4-other", "col4-")
+	fmt.Println(exists)
+	// Output: true
+}
+
 func TestMergeWords1(t *testing.T) {
 	tests := []struct {
 		name           string
@@ -49,6 +55,28 @@ func TestMergeWords1(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := MergeWords(tt.originalValues, tt.newValues); got != tt.want {
 				t.Errorf("MergeWords() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestHasClassWithPrefix(t *testing.T) {
+	tests := []struct {
+		name   string
+		class  string
+		prefix string
+		want   bool
+	}{
+		{"True - one", "a-b c-d", "a-", true},
+		{"True - two", "a-b a-c c-d", "a-", true},
+		{"False - none", "", "a-", false},
+		{"False - one", "b-c", "a-", false},
+		{"False - two", "b-c c-d", "a-", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := HasWordWithPrefix(tt.class, tt.prefix); got != tt.want {
+				t.Errorf("HasWordWithPrefix() = %v, want %v", got, tt.want)
 			}
 		})
 	}

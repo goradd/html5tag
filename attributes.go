@@ -28,7 +28,8 @@ type Attributer interface {
 // and then convert it to a string to get the attributes embeddable in an HTML tag.
 //
 // To create new attributes, the easiest is to do this:
-//   a := Attributes{"id":"theId", "class":"myClass"}
+//
+//	a := Attributes{"id":"theId", "class":"myClass"}
 type Attributes map[string]string
 
 // NewAttributes creates a new Attributes collection.
@@ -350,7 +351,8 @@ func (a Attributes) Merge(aIn Attributes) Attributes {
 // OverrideString merges an attribute string into the attributes. Conflicts are won by the string.
 //
 // It takes an attribute string of the form
-//   a="b" c="d"
+//
+//	a="b" c="d"
 func (a Attributes) OverrideString(s string) Attributes {
 	if s == "" {
 		return a
@@ -364,7 +366,8 @@ func (a Attributes) OverrideString(s string) Attributes {
 // Conflicts are won by the string, but styles and classes merge.
 //
 // It takes an attribute string of the form
-//   a="b" c="d"
+//
+//	a="b" c="d"
 func (a Attributes) MergeString(s string) Attributes {
 	if s == "" {
 		return a
@@ -473,6 +476,15 @@ func (a Attributes) RemoveClassesWithPrefix(v string) bool {
 	return false
 }
 
+// HasClassWithPrefix returns true if the attribute has a class with the given prefix.
+func (a Attributes) HasClassWithPrefix(prefix string) bool {
+	if a.Has("class") {
+		class := a.Get("class")
+		return HasWordWithPrefix(class, prefix)
+	}
+	return false
+}
+
 // AddValuesChanged adds the given space separated values to the end of the values in the
 // given attribute, removing duplicates and returning true if the attribute was changed at all.
 // An example of a place to use this is the aria-labelledby attribute, which can take multiple
@@ -556,6 +568,7 @@ func (a Attributes) HasClass(c string) bool {
 //	<div id='test1' data-test-case="my test"></div>
 //
 // You would get that value in javascript by doing:
+//
 //	g$('test1').data('testCase');
 //
 // Conversion to special html data-* name formatting is handled here automatically. So if you SetData('testCase') here,
@@ -772,9 +785,9 @@ func getAttributesFromTemplate(s string) Attributes {
 /*
 type AttributeCreator map[string]string
 
-func (c AttributeCreator) Create() Attributes {
-	return Attributes(c)
-}
+	func (c AttributeCreator) Create() Attributes {
+		return Attributes(c)
+	}
 */
 var templateMatcher *regexp.Regexp
 
