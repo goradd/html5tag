@@ -94,3 +94,15 @@ func RemoveClassesWithPrefix(class string, prefix string) string {
 
 	return ret
 }
+
+// HasWordWithPrefix returns true if the given string has a word in it with the given prefix.
+func HasWordWithPrefix(class string, prefix string) bool {
+	classes := strings.Fields(class)
+
+	for _, s := range classes {
+		if strings.HasPrefix(s, prefix) {
+			return true
+		}
+	}
+	return false
+}
